@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.19;
+
+library EntropyUtils {
+    function adaptiveFingerprint(bytes memory input, bytes memory noise) internal pure returns (bytes32) {
+        bytes memory combined = abi.encodePacked(input, noise);
+        return keccak256(combined);
+    }
+
+    function verifyFingerprint(bytes memory expected, bytes memory input, bytes memory noise) internal pure returns (bool) {
+        return keccak256(abi.encodePacked(input, noise)) == keccak256(expected);
+    }
+}
